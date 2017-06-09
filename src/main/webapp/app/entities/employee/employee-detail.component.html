@@ -1,0 +1,41 @@
+
+<div *ngIf="employee">
+    <h2><span jhiTranslate="activitiApp.employee.detail.title">Employee</span> {{employee.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="activitiApp.employee.name">Name</span></dt>
+        <dd>
+            <span>{{employee.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="activitiApp.employee.email">Email</span></dt>
+        <dd>
+            <span>{{employee.email}}</span>
+        </dd>
+        <dt><span jhiTranslate="activitiApp.employee.phoneNumber">Phone Number</span></dt>
+        <dd>
+            <span>{{employee.phoneNumber}}</span>
+        </dd>
+        <dt><span jhiTranslate="activitiApp.employee.hireDate">Hire Date</span></dt>
+        <dd>
+            <span>{{employee.hireDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="activitiApp.employee.salary">Salary</span></dt>
+        <dd>
+            <span>{{employee.salary}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'employee/'+ employee.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
