@@ -47,6 +47,7 @@
         <maven.version>3.0.0</maven.version>
         <metrics-spring.version>3.1.3</metrics-spring.version>
         <node.version>v6.10.3</node.version>
+        <activiti.version>5.19.0.2</activiti.version>
         <!-- These remain empty unless the corresponding profile is active -->
         <profile.no-liquibase />
         <profile.swagger />
@@ -363,6 +364,49 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-data</artifactId>
         </dependency>
+
+
+
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-spring-boot-starter-basic</artifactId>
+            <version>${activiti.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-spring-boot-starter-rest-api</artifactId>
+            <!--<artifactId>spring-boot-starter-rest-api</artifactId>-->
+            <version>${activiti.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-spring-boot-starter-actuator</artifactId>
+            <version>${activiti.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-spring-boot-starter-jpa</artifactId>
+            <version>${activiti.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.subethamail</groupId>
+            <artifactId>subethasmtp-wiser</artifactId>
+            <version>1.2</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+
+
+
+
         <!-- jhipster-needle-maven-add-dependency -->
     </dependencies>
     <build>

@@ -55,9 +55,9 @@ import java.util.*;
  */
 @RestController
 @RequestMapping("/api")
-public class UserResource {
+public class UserResourceManagement {
 
-    private final Logger log = LoggerFactory.getLogger(UserResource.class);
+    private final Logger log = LoggerFactory.getLogger(UserResourceManagement.class);
 
     private static final String ENTITY_NAME = "userManagement";
 
@@ -67,8 +67,8 @@ public class UserResource {
 
     private final UserService userService;
 
-    public UserResource(UserRepository userRepository, MailService mailService,
-            UserService userService) {
+    public UserResourceManagement(UserRepository userRepository, MailService mailService,
+                                  UserService userService) {
 
         this.userRepository = userRepository;
         this.mailService = mailService;

@@ -28,7 +28,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.time.Instant;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -44,11 +43,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Test class for the UserResource REST controller.
  *
- * @see UserResource
+ * @see UserResourceManagement
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ActivitiApp.class)
-public class UserResourceIntTest {
+public class UserResourceManagementIntTest {
 
     private static final Long DEFAULT_ID = 1L;
 
@@ -104,8 +103,8 @@ public class UserResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        UserResource userResource = new UserResource(userRepository, mailService, userService);
-        this.restUserMockMvc = MockMvcBuilders.standaloneSetup(userResource)
+        UserResourceManagement userResourceManagement = new UserResourceManagement(userRepository, mailService, userService);
+        this.restUserMockMvc = MockMvcBuilders.standaloneSetup(userResourceManagement)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
             .setMessageConverters(jacksonMessageConverter)

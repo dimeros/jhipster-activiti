@@ -10,8 +10,10 @@ import com.mycompany.activiti.service.dto.EmployeeDTO;
 import com.mycompany.activiti.service.mapper.EmployeeMapper;
 import io.swagger.annotations.ApiParam;
 import io.github.jhipster.web.util.ResponseUtil;
+import org.activiti.engine.RuntimeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -22,7 +24,9 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -40,9 +44,12 @@ public class EmployeeResource {
 
     private final EmployeeMapper employeeMapper;
 
-    public EmployeeResource(EmployeeRepository employeeRepository, EmployeeMapper employeeMapper) {
+    private final RuntimeService runtimeService;
+
+    public EmployeeResource(EmployeeRepository employeeRepository, EmployeeMapper employeeMapper, RuntimeService runtimeService) {
         this.employeeRepository = employeeRepository;
         this.employeeMapper = employeeMapper;
+        this.runtimeService = runtimeService;
     }
 
     /**
@@ -61,6 +68,11 @@ public class EmployeeResource {
         }
         Employee employee = employeeMapper.toEntity(employeeDTO);
         employee = employeeRepository.save(employee);
+
+        // start process
+        Map<String, Object> vars = Collections.<String, Object>singletonMap("applicant", employeeDTO);
+        runtimeService.startProcessInstanceByKey("hireProcessWithJpa", vars);
+
         EmployeeDTO result = employeeMapper.toDto(employee);
         return ResponseEntity.created(new URI("/api/employees/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))

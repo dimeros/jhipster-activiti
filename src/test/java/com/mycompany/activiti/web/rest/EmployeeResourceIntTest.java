@@ -8,6 +8,7 @@ import com.mycompany.activiti.service.dto.EmployeeDTO;
 import com.mycompany.activiti.service.mapper.EmployeeMapper;
 import com.mycompany.activiti.web.rest.errors.ExceptionTranslator;
 
+import org.activiti.engine.RuntimeService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -63,6 +64,9 @@ public class EmployeeResourceIntTest {
     private EmployeeRepository employeeRepository;
 
     @Autowired
+    private RuntimeService runtimeService;
+
+    @Autowired
     private EmployeeMapper employeeMapper;
 
     @Autowired
@@ -84,7 +88,7 @@ public class EmployeeResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        EmployeeResource employeeResource = new EmployeeResource(employeeRepository, employeeMapper);
+        EmployeeResource employeeResource = new EmployeeResource(employeeRepository, employeeMapper, runtimeService);
         this.restEmployeeMockMvc = MockMvcBuilders.standaloneSetup(employeeResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

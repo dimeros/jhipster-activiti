@@ -8,6 +8,7 @@ import io.github.jhipster.security.*;
 import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -27,6 +28,7 @@ import javax.annotation.PostConstruct;
 
 @Configuration
 @EnableWebSecurity
+@Order(99)
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
