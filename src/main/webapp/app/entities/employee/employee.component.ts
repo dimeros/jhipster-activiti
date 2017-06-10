@@ -71,6 +71,16 @@ export class EmployeeComponent implements OnInit, OnDestroy {
         this.registerChangeInEmployees();
     }
 
+    startHiring(employee: Employee) {
+        this.employeeService.startHiring(employee).subscribe((response) => {
+            this.eventManager.broadcast({
+                name: 'employeeListModification',
+                content: 'Deleted an employee'
+            });
+        });
+        this.alertService.success('activitiApp.employee.hired', { param : employee.name }, null);
+    }
+
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
     }

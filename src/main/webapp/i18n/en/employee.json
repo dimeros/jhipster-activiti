@@ -9,6 +9,8 @@
             "created": "A new Employee is created with identifier {{ param }}",
             "updated": "A Employee is updated with identifier {{ param }}",
             "deleted": "A Employee is deleted with identifier {{ param }}",
+            "startHiring": "Start hiring",
+            "hired": "Employee hired",
             "delete": {
                 "question": "Are you sure you want to delete Employee {{ id }}?"
             },

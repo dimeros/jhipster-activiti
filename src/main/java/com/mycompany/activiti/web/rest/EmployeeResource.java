@@ -69,13 +69,36 @@ public class EmployeeResource {
         Employee employee = employeeMapper.toEntity(employeeDTO);
         employee = employeeRepository.save(employee);
 
+        EmployeeDTO result = employeeMapper.toDto(employee);
+        return ResponseEntity.created(new URI("/api/employees/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+
+    /**
+     * POST  /employees/start-hiring : Hires an employer using activiti. Also saves him
+     *
+     * @param employeeDTO the employeeDTO to create and start-hiring
+     * @return the ResponseEntity with status 201 (Created) and with body the new employeeDTO, or with status 400 (Bad Request) if the employee has already an ID
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @PostMapping("/employees/start-hire-process")
+    @Timed
+    public ResponseEntity<EmployeeDTO> startHiring(@RequestBody EmployeeDTO employeeDTO) throws URISyntaxException {
+        log.debug("REST request to hire Employee : {}", employeeDTO);
+        if (employeeDTO.getId() == null) {
+            return createEmployee(employeeDTO);
+        }
+        Employee employee = employeeMapper.toEntity(employeeDTO);
+        employee = employeeRepository.save(employee);
+
         // start process
         Map<String, Object> vars = Collections.<String, Object>singletonMap("applicant", employeeDTO);
         runtimeService.startProcessInstanceByKey("hireProcessWithJpa", vars);
 
         EmployeeDTO result = employeeMapper.toDto(employee);
-        return ResponseEntity.created(new URI("/api/employees/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, employeeDTO.getId().toString()))
             .body(result);
     }
 

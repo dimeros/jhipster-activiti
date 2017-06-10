@@ -31,6 +31,15 @@ export class EmployeeService {
         });
     }
 
+    startHiring(employee: Employee): Observable<Employee> {
+        const copy = this.convert(employee);
+        return this.http.post(this.resourceUrl + '/start-hire-process', copy).map((res: Response) => {
+            const jsonResponse = res.json();
+            this.convertItemFromServer(jsonResponse);
+            return jsonResponse;
+        });
+    }
+
     find(id: number): Observable<Employee> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
             const jsonResponse = res.json();
