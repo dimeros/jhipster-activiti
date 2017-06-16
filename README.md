@@ -1,5 +1,9 @@
-# activiti
+# jhiipster-activiti
 This application was generated using JHipster 4.5.3, you can find documentation and help at [https://jhipster.github.io/documentation-archive/v4.5.3](https://jhipster.github.io/documentation-archive/v4.5.3).
+
+- Entities/Employees: Create a new employee and start hiring him. 
+- Resource: /employees/start-hire-process: Triggers the activiti process 'hireProcessWithJpa'
+ 
 
 ## Development
 
@@ -147,3 +151,7 @@ To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`)
 [Protractor]: https://angular.github.io/protractor/
 [Leaflet]: http://leafletjs.com/
 [DefinitelyTyped]: http://definitelytyped.org/
+
+
+Special thanks to this blog https://github.com/jbarrez/spring-boot-with-activiti-example. 
+
